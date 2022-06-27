@@ -1,0 +1,24 @@
+<nav>
+  <mat-toolbar class="bg-primary-default dark:bg-default-600">
+    <div class="w-full flex flex-row justify-between">
+      <div class="flex items-center">
+        <button mat-icon-button aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>My App</span>
+      </div>
+      <div class="flex items-center">
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+          (click)="cambiarModoTema(temaSeleccionado.getThemeMode)">
+          <mat-icon class="dark:text-yellow-500">
+            {{ temaSeleccionado.getThemeMode === ThemeMode.DARK ? 'light_mode' : 'dark_mode' }}
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-toolbar>
+</nav>
