@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ThemeMode } from './theme.enum';
-import { IPalette, IVariantPalette, OptionPalette, Theme, VariantPaletteProperties } from './theme.model';
+import { ThemeMode } from '../models/theme.enum';
+import { IPalette, IVariantPalette, OptionPalette, Theme, VariantPaletteProperties } from '../models/theme.model';
 
 const PALETTE : IPalette = {
   primary:{
@@ -112,18 +112,25 @@ const PALETTE : IPalette = {
 })
 export class ThemeService {
 
-  private theme = new Theme(PALETTE);
+  private currentTheme = new Theme(PALETTE);
 
   constructor() {
   }
 
-  getTheme(){
-    return this.theme
+  getCurrentTheme(){
+    return this.currentTheme
   }
 
-  cambiarModoTema(modoThema: ThemeMode, modoTemaAnterior: ThemeMode){
-    this.theme.setThemeMode(modoThema);
-    this.loadTheme(modoThema, modoTemaAnterior)
+  public loadTheme(): void {
+    this.setPaletteColorsCSS(this.currentTheme.palette);
+    document.body.classList.add(this.currentTheme.themeMode);
+  }
+
+  changeThemeMode(themeMode: ThemeMode, oldThemeMode: ThemeMode){
+    this.currentTheme.setThemeMode(themeMode);
+    document.body.classList.add(themeMode);
+    localStorage.setItem('themeMode', themeMode);
+    if(oldThemeMode) document.body.classList.remove(oldThemeMode);
   }
 
   private setPaletteColorsCSS(palette: IPalette): void {
@@ -157,25 +164,5 @@ export class ThemeService {
         }
       }
     }
-  }
-
-  private removeUnusedTheme(themeMode: ThemeMode | null): void {
-    if (themeMode) {
-      document.body.classList.remove(themeMode);
-    }
-  }
-
-  public loadTheme(
-    themeMode: ThemeMode,
-    oldThemeMode: ThemeMode | null = null,
-    firstLoad: boolean = true
-  ): void {
-    if (firstLoad) {
-      document.body.classList.add(themeMode);
-      this.setPaletteColorsCSS(this.theme.getPalette);
-    }
-    this.theme.setThemeMode(themeMode)
-    document.body.classList.add(themeMode);
-    if(oldThemeMode)this.removeUnusedTheme(oldThemeMode);
   }
 }

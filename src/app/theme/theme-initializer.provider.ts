@@ -1,12 +1,11 @@
 import { APP_INITIALIZER } from "@angular/core";
-import { ThemeMode } from "./theme.enum";
-import { ThemeService } from "./theme.service";
+import { ThemeService } from "./services/theme.service";
 
 export const ThemeInitializerProvider = {
   provide: APP_INITIALIZER,
   useFactory: (themeService: ThemeService): (() => void) =>
     () => {
-      themeService.loadTheme(ThemeMode.LIGHT);
+      themeService.loadTheme();
       return () => {};
     },
   deps: [ThemeService],

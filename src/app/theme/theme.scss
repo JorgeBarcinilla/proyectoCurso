@@ -136,8 +136,10 @@ $custom-dark-theme: mat.define-dark-theme(
 
 .light {
   @include mat.all-component-themes($custom-light-theme);
+  @include mat.all-component-colors($custom-light-theme);
 }
 
 .dark {
+  @include mat.all-component-themes($custom-dark-theme);
   @include mat.all-component-colors($custom-dark-theme);
 }

@@ -1,24 +1,25 @@
-<nav>
-  <mat-toolbar class="bg-primary-default dark:bg-default-600">
-    <div class="w-full flex flex-row justify-between">
-      <div class="flex items-center">
-        <button mat-icon-button aria-label="Example icon-button with menu icon">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>My App</span>
-      </div>
-      <div class="flex items-center">
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
-          (click)="cambiarModoTema(temaSeleccionado.getThemeMode)">
-          <mat-icon class="dark:text-yellow-500">
-            {{ temaSeleccionado.getThemeMode === ThemeMode.DARK ? 'light_mode' : 'dark_mode' }}
-          </mat-icon>
-        </button>
-      </div>
+<nav class="shadow">
+  <mat-toolbar
+    class="bg-primary-default dark:bg-default-600 justify-between transition-colors ease-in-out duration-500">
+    <div class="flex items-center">
+      <button class="text-white" mat-icon-button aria-label="Example icon-button with menu icon"
+        (click)="toggleSidenavButton()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="text-white">My App</span>
     </div>
-
+    <div class="flex items-center">
+      <span class="text-base font-bold p-2 text-white">{{currentDate | date : 'medium'}}</span>
+      <button mat-icon-button class="text-white" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-icon-button class="text-white" aria-label="Example icon-button with share icon"
+        [matTooltip]="currentTheme.themeMode === ThemeMode.DARK ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+        (click)="changeThemeMode(currentTheme.themeMode)">
+        <mat-icon class="text-default-600 dark:text-yellow-500">
+          {{ currentTheme.themeMode === ThemeMode.DARK ? 'light_mode' : 'dark_mode' }}
+        </mat-icon>
+      </button>
+    </div>
   </mat-toolbar>
 </nav>

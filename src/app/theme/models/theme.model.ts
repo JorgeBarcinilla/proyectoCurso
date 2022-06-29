@@ -60,19 +60,19 @@ export interface IVariantPalette {
 
 export class Theme {
 
-  private themeMode!: ThemeMode;
+  private _themeMode: ThemeMode = localStorage.getItem('themeMode') ? localStorage.getItem('themeMode') as ThemeMode : window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeMode.DARK : ThemeMode.LIGHT;
 
   constructor(private _palette: IPalette){
   }
 
   setThemeMode(themeMode:ThemeMode){
-    this.themeMode = themeMode;
+    this._themeMode = themeMode;
   }
 
-  public get getPalette(): IPalette {
+  public get palette(): IPalette {
     return this._palette;
   }
-  public get getThemeMode(): ThemeMode {
-    return this.themeMode;
+  public get themeMode(): ThemeMode {
+    return this._themeMode;
   }
 }
