@@ -1,5 +1,8 @@
 <div class="flex flex-col">
   <div class="flex flex-row justify-center p-2">
+    <span class="text-4xl font-bold">{{textFromOtherComponent}}</span>
+  </div>
+  <div class="flex flex-row justify-center p-2">
     <span class="text-4xl font-bold">Lista de usuarios</span>
   </div>
   <div class="flex flex-row justify-center p-2">
@@ -50,6 +53,10 @@
             aria-label="Example icon button with a home icon" (click)="deleteUser(i)">
             <mat-icon>delete</mat-icon>
           </button>
+          <button mat-icon-button matTooltip="Edit user" color="accent"
+            aria-label="Example icon button with a home icon" (click)="navigateToForm(i)">
+            <mat-icon>link</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -57,7 +64,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumnsTable;"></tr>
     </table>
   </div>
-  <div class="flex flex-row p-2">
+  <div class="flex flex-row justify-between p-2">
     <span class="text-2xl font-bold">Usuario seleccionado</span>
   </div>
   <div class="flex flex-row justify-center items-center p-2">

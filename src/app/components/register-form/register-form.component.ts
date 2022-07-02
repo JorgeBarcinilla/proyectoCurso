@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,7 +24,7 @@ export class RegisterFormComponent implements OnInit {
 
   susbcriptions: Subscription = new Subscription();
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
 
   ngOnDestroy(){
     this.susbcriptions.unsubscribe();
@@ -31,8 +32,15 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.susbcriptions.add(
+      this.activatedRoute.params.subscribe((param) => {
+        console.log(param)
+        this.userService.selectUserByIndex(Number(param['index']))
+      })
+    )
+    this.susbcriptions.add(
       this.userService.getUserSelect().subscribe({
           next: (user) => {
+            console.log(user)
             if(user){
               this.myForm.patchValue(user)
             }else{

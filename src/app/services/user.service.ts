@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, of, Subject } from 'rxjs';
+import { BehaviorSubject, catchError, map, of } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class UserService {
     }
   ]
 
-  userSelected$ = new Subject<User | null>();
+  userSelected$ = new BehaviorSubject<User | null>(null);
   users$ = new BehaviorSubject<User[]>(this.userList);
 
   constructor() { }
@@ -59,6 +59,7 @@ export class UserService {
   }
 
   selectUserByIndex(index?: number){
+    console.log(this.userList[index!])
     this.userSelected$.next(index !== undefined ? this.userList[index] : null)
   }
 

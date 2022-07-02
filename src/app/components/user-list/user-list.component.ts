@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, Subscription, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -12,6 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserListComponent implements OnInit {
 
+  textFromOtherComponent: string | null = null
+
   displayedColumnsTable = ['index', 'firstName', 'lastName', 'email' ,'country', 'action']
   tableDataSource$: Observable<MatTableDataSource<User>>;
 
@@ -19,7 +22,7 @@ export class UserListComponent implements OnInit {
 
   susbcriptions: Subscription = new Subscription();
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tableDataSource$ = this.userService.getUsers().pipe(tap((users) => console.log(users)),
                                                             map((users) => new MatTableDataSource<User>(users)));
   }
@@ -29,6 +32,12 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.susbcriptions.add(
+      this.activatedRoute.paramMap.subscribe((param) => {
+        console.log(param)
+        this.textFromOtherComponent = param.get('from')
+      })
+    )
     this.susbcriptions.add(
       this.userService.getUserSelect().subscribe({
           next: (user) => {
@@ -46,6 +55,10 @@ export class UserListComponent implements OnInit {
 
   deleteUser(index?: number){
     this.userService.deleteUserByIndex(index)
+  }
+
+  navigateToForm(userIndex: number){
+    this.router.navigate(['/'+userIndex])
   }
 
 }
