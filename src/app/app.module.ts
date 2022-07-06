@@ -18,8 +18,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { RegisterFormModule } from './module/register-form/register-form.module';
 import { ThemeInitializerProvider } from './theme/theme-initializer.provider';
 
 
@@ -31,7 +31,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     NavbarComponent,
-    RegisterFormComponent,
     UserListComponent,
   ],
   imports: [
@@ -56,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       },
       defaultLanguage: 'en'
-    })
+    }),
+    RegisterFormModule
   ],
   providers: [
     ThemeInitializerProvider

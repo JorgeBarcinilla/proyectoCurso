@@ -61,8 +61,8 @@
           (click)="myForm.reset()">{{"registerFormComponent.form.resetButton" | translate}}</button>
         <button mat-flat-button color="primary" [disabled]="myForm.invalid"
           (click)="addUser()">{{"registerFormComponent.form.addButton" | translate}}</button>
-        <button mat-flat-button color="accent" type="button" [routerLink]="['/lista', {from: 'registerFormComponent.textToUrl' |
-          translate}]">{{"registerFormComponent.form.showUserButton" | translate}}</button>
+        <button mat-flat-button color="accent" type="button"
+          [routerLink]="['/lista', {from: 'registerFormComponent.textToUrl' | translate}]">{{"registerFormComponent.form.showUserButton" | translate}}</button>
       </div>
     </div>
   </div>
