@@ -1,0 +1,36 @@
+{
+  "navBarComponent":{
+    "titleApp": "Mi aplicación",
+    "languageES": "Español",
+    "languageEN": "Ingles"
+  },
+  "userListComponent": {
+    "titleTable": "Lista de usuarios",
+    "table":{
+      "positionColumn": "N°",
+      "firstNameColumn": "Nombres",
+      "lastNameColumn": "Apellidos",
+      "emailColumn": "Correo",
+      "countryColumn": "País"
+    },
+    "labelUserSelected": "Usuario seleccionado",
+    "labelUserNoSelected":"No hay usuario seleccionado"
+  },
+  "registerFormComponent":{
+    "textToUrl": "Esto viene del FormComponent",
+    "titleForm" : "Formulario",
+    "form":{
+      "firstNameField": "Nombres",
+      "lastNameField": "Apellidos",
+      "ageField": "Edad",
+      "emailField": "Correo",
+      "addressField": "Dirección",
+      "countryField": "Pais",
+      "cityField": "Ciudad",
+      "postalCodeField": "Codigo postal",
+      "resetButton": "Reiniciar",
+      "addButton": "Agregar",
+      "showUserButton": "Ver usuario"
+    }
+  }
+}

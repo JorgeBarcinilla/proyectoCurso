@@ -6,13 +6,23 @@
         (click)="toggleSidenavButton()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="text-white">My App</span>
+      <span class="text-white">{{"navBarComponent.titleApp" | translate}}</span>
     </div>
     <div class="flex items-center">
       <span class="text-base font-bold p-2 text-white">{{currentDate | date : 'medium'}}</span>
       <button mat-icon-button class="text-white" aria-label="Example icon-button with heart icon">
         <mat-icon>favorite</mat-icon>
       </button>
+      <button mat-icon-button class="text-white" aria-label="Example icon-button with heart icon"
+        [matMenuTriggerFor]="languageMenu">
+        <mat-icon>translate</mat-icon>
+      </button>
+      <mat-menu #languageMenu="matMenu">
+        <button *ngIf="currentLanguage != Language.ES" mat-menu-item
+          (click)="changeLanguage(Language.ES)">{{"navBarComponent.languageES" | translate}}</button>
+        <button *ngIf="currentLanguage != Language.EN" mat-menu-item
+          (click)="changeLanguage(Language.EN)">Ingles</button>
+      </mat-menu>
       <button mat-icon-button class="text-white" aria-label="Example icon-button with share icon"
         [matTooltip]="currentTheme.themeMode === ThemeMode.DARK ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
         (click)="changeThemeMode(currentTheme.themeMode)">

@@ -2,54 +2,54 @@
   <div class="grid auto-rows-auto grid-cols-6 gap-3">
     <div class="col-span-6">
       <div class="flex flex-row justify-center">
-        <span class="text-4xl font-bold">Formulario</span>
+        <span class="text-4xl font-bold">{{"registerFormComponent.titleForm" | translate}}</span>
       </div>
     </div>
     <div class="col-span-3">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>First name</mat-label>
+        <mat-label>{{"registerFormComponent.form.firstNameField" | translate}}</mat-label>
         <input matInput formControlName="firstName">
       </mat-form-field>
     </div>
     <div class="col-span-3">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Last Name</mat-label>
+        <mat-label>{{"registerFormComponent.form.lastNameField" | translate}}</mat-label>
         <input matInput formControlName="lastName">
       </mat-form-field>
     </div>
     <div class="col-span-2">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Age</mat-label>
+        <mat-label>{{"registerFormComponent.form.ageField" | translate}}</mat-label>
         <input matInput formControlName="age" type="number" style="-moz-appearance: textfield;">
       </mat-form-field>
     </div>
     <div class="col-span-4">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Email</mat-label>
+        <mat-label>{{"registerFormComponent.form.emailField" | translate}}</mat-label>
         <input matInput formControlName="email">
       </mat-form-field>
     </div>
     <div class="col-span-6">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Address</mat-label>
+        <mat-label>{{"registerFormComponent.form.addressField" | translate}}</mat-label>
         <textarea matInput placeholder="Ex. 100 Main St" formControlName="address">1600 Amphitheatre Pkwy</textarea>
       </mat-form-field>
     </div>
     <div class="col-span-2">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Country</mat-label>
+        <mat-label>{{"registerFormComponent.form.countryField" | translate}}</mat-label>
         <input matInput placeholder="Ex. San Francisco" formControlName="country">
       </mat-form-field>
     </div>
     <div class="col-span-2">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>City</mat-label>
+        <mat-label>{{"registerFormComponent.form.cityField" | translate}}</mat-label>
         <input matInput placeholder="Ex. California" formControlName="city">
       </mat-form-field>
     </div>
     <div class="col-span-2">
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Postal Code</mat-label>
+        <mat-label>{{"registerFormComponent.form.postalCodeField" | translate}}</mat-label>
         <input matInput #postalCode placeholder="Ex. 94105" formControlName="postalCode" type="number"
           style="-moz-appearance: textfield;">
         <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
@@ -57,10 +57,12 @@
     </div>
     <div class="col-span-6">
       <div class="flex flex-row justify-around">
-        <button mat-flat-button color="warn" (click)="myForm.reset()">Resetear</button>
-        <button mat-flat-button color="primary" [disabled]="myForm.invalid" (click)="addUser()">Agregar</button>
-        <button mat-flat-button color="accent" type="button"
-          [routerLink]="['/lista', {from: 'Esto viene del FormComponent'}]">Ver usuario</button>
+        <button mat-flat-button color="warn"
+          (click)="myForm.reset()">{{"registerFormComponent.form.resetButton" | translate}}</button>
+        <button mat-flat-button color="primary" [disabled]="myForm.invalid"
+          (click)="addUser()">{{"registerFormComponent.form.addButton" | translate}}</button>
+        <button mat-flat-button color="accent" type="button" [routerLink]="['/lista', {from: 'registerFormComponent.textToUrl' |
+          translate}]">{{"registerFormComponent.form.showUserButton" | translate}}</button>
       </div>
     </div>
   </div>
