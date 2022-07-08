@@ -14,8 +14,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { UserListModule } from './components/user-list/user-list.module';
 import { RegisterFormModule } from './module/register-form/register-form.module';
+import { UserListModule } from './module/user-list/user-list.module';
 import { ThemeInitializerProvider } from './theme/theme-initializer.provider';
 
 
