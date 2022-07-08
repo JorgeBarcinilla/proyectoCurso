@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { TranslateForChildModule } from 'src/app/shared/translate-for-child.module';
+import { RegisterFormRoutingModule } from './register-form-routing.module';
 import { RegisterFormComponent } from './register-form.component';
 
 
@@ -19,7 +20,8 @@ import { RegisterFormComponent } from './register-form.component';
     MatFormFieldModule,
     MatInputModule,
     AppRoutingModule,
-    TranslateForChildModule
+    TranslateForChildModule,
+    RegisterFormRoutingModule
   ],
   exports:[RegisterFormComponent]
 })

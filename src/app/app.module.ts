@@ -2,14 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { UserListComponent } from './components/user-list/user-list.component';
+import { UserListModule } from './components/user-list/user-list.module';
 import { RegisterFormModule } from './module/register-form/register-form.module';
 import { ThemeInitializerProvider } from './theme/theme-initializer.provider';
 
@@ -30,24 +26,19 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    UserListComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
     MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
     MatTooltipModule,
     MatSidenavModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
     MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
     TranslateModule.forRoot({
       loader:{
         provide: TranslateLoader,
@@ -56,7 +47,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
       defaultLanguage: 'en'
     }),
-    RegisterFormModule
+    RegisterFormModule,
+    UserListModule
   ],
   providers: [
     ThemeInitializerProvider
