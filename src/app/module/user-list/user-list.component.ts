@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, Subscription, tap } from 'rxjs';
@@ -12,6 +13,8 @@ import { UserService } from 'src/app/services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent implements OnInit {
+
+  inputBusqueda = new FormControl();
 
   textFromOtherComponent: string | null = null
 
@@ -32,6 +35,11 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.inputBusqueda.valueChanges.subscribe((nombre: string) => {
+      console.log(nombre)
+      this.tableDataSource$ = this.userService.getUsers(nombre).pipe(tap((users) => console.log(users)),
+                                                            map((users) => new MatTableDataSource<User>(users)));
+    })
     this.susbcriptions.add(
       this.activatedRoute.paramMap.subscribe((param) => {
         console.log(param)
@@ -49,12 +57,12 @@ export class UserListComponent implements OnInit {
     )
   }
 
-  selectUser(index?: number){
-    this.userService.selectUserByIndex(index)
+  selectUser(id?: number){
+    this.userService.selectUserById(id)
   }
 
-  deleteUser(index?: number){
-    this.userService.deleteUserByIndex(index)
+  deleteUser(id?: number){
+    this.userService.deleteUserById(id)
   }
 
   navigateToForm(userIndex: number){

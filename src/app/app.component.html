@@ -1,6 +1,6 @@
 <div class="w-full h-full bg-default-50 dark:bg-default-800 transition-colors ease-in-out duration-500">
   <app-navbar [openSidenav]="drawer.opened" (toggleSidenavButton)="drawer.toggle()"></app-navbar>
-  <mat-drawer-container [ngStyle]="{height: 'calc( 100% - 64px)'}">
+  <mat-drawer-container>
     <mat-drawer #drawer
       class="w-52 bg-primary-50 dark:bg-default-600 transition-colors ease-in-out duration-500 border-r border-primary-200 dark:border-default-700"
       mode="side">
