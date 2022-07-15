@@ -3,7 +3,11 @@
     <span class="text-4xl font-bold">{{textFromOtherComponent}}</span>
   </div>
   <div class="flex flex-row justify-center p-2">
-    <span class="text-4xl font-bold">{{"userListComponent.titleTable" | translate}} </span>
+    <span class="text-4xl font-bold mx-2">{{"userListComponent.titleTable" | translate}} </span>
+    <button class="mx-2" mat-flat-button color="primary" matTooltip="Load Users"
+      aria-label="Example icon button with a home icon" (click)="getUsers()">
+      Cargar usuarios
+    </button>
   </div>
   <div class="flex flex-row justify-center p-2">
     <mat-form-field class="w-full" appearance="fill">
@@ -74,12 +78,8 @@
     <span class="text-2xl font-bold">{{"userListComponent.labelUserSelected" | translate}}</span>
   </div>
   <div class="flex flex-row justify-center items-center p-2">
-    <span [ngClass]="userSelect ? 'text-green-500' : 'text-danger-default'"
+    <span *ngIf="userSelect$ | async as userSelect" [ngClass]="userSelect ? 'text-green-500' : 'text-danger-default'"
       class="text-lg
-      font-bold">{{userSelect ? (userSelect?.firstName + ' ' + userSelect?.lastName) : "userListComponent.labelUserNoSelected" | translate}}</span>
-    <button *ngIf="userSelect" mat-icon-button color="warn" matTooltip="Delete select user"
-      aria-label="Example icon button with a home icon" (click)="selectUser()">
-      <mat-icon>cancel</mat-icon>
-    </button>
+      font-bold">{{(userSelect?.firstName + ' ' + userSelect?.lastName)}}</span>
   </div>
 </div>

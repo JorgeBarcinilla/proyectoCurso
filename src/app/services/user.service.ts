@@ -1,5 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -7,105 +8,45 @@ import { User } from '../models/user.model';
 })
 export class UserService {
 
-  userList:User[] = [
-    {
-      id: 1,
-      firstName: 'Jorge',
-      lastName: 'Palacio',
-      age: 26,
-      address: 'Carrera 58 # 3b - 54',
-      city: 'Barranquilla',
-      country: 'Colombia',
-      email: 'Jorge@coderhouse.com',
-      postalCode: 832154
-    },
-    {
-      id: 2,
-      firstName: 'Pablo',
-      lastName: 'Garcia',
-      age: 32,
-      address: 'Av Jimenez # 96 - 47',
-      city: 'Buenos Aires',
-      country: 'Argentina',
-      email: 'pablo@coderhouse.com',
-      postalCode: 369852
-    },
-    {
-      id: 3,
-      firstName: 'Mariano',
-      lastName: 'Alvez',
-      age: 32,
-      address: 'Av Jimenez # 96 - 47',
-      city: 'Buenos Aires',
-      country: 'Argentina',
-      email: 'pablo@coderhouse.com',
-      postalCode: 369852
-    },
-    {
-      id: 4,
-      firstName: 'Nahuel',
-      lastName: 'Gonzalez',
-      age: 23,
-      address: 'Carrera 58 # 3b - 54',
-      city: 'Barranquilla',
-      country: 'Colombia',
-      email: 'Jorge@coderhouse.com',
-      postalCode: 832154
-    },
-    {
-      id: 5,
-      firstName: 'Julio',
-      lastName: 'Martinez',
-      age: 51,
-      address: 'Av Jimenez # 96 - 47',
-      city: 'Buenos Aires',
-      country: 'Argentina',
-      email: 'pablo@coderhouse.com',
-      postalCode: 369852
-    },
-    {
-      id: 6,
-      firstName: 'Ignacio',
-      lastName: 'Neprias',
-      age: 22,
-      address: 'Av Jimenez # 96 - 47',
-      city: 'Buenos Aires',
-      country: 'Argentina',
-      email: 'pablo@coderhouse.com',
-      postalCode: 369852
-    }
-  ]
+  userList:User[] = [];
 
 
   userSelected$ = new BehaviorSubject<User | null>(null);
   users$ = new BehaviorSubject<User[]>(this.userList);
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   addUser(user:User){
     this.userList.push(user)
     this.users$.next(this.userList)
   }
 
-  getUsers(nombre?:string){
-    return this.users$.asObservable().pipe(
+  getUsers(nombre?:string): Observable<User[]>{
+    return this.httpClient.get<User[]>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'u',{headers: new HttpHeaders({
+      "authorization": 'Este es el token'
+    })}).pipe(
       map((users) => {
         return nombre ? users.filter(user =>  (user.firstName.toLowerCase() + ' ' + user.lastName.toLowerCase()).includes(nombre.toLowerCase())) : users
+      }),
+      catchError((error) => {
+        console.log(error)
+        throw new Error()
       })
-    )
+    );
   }
 
   getUserSelect(){
     return this.userSelected$.asObservable()
   }
 
-  selectUserByIndex(index?: number){
+  /*selectUserByIndex(index?: number){
     console.log(this.userList[index!])
     this.userSelected$.next(index !== undefined ? this.userList[index] : null)
-  }
+  }*/
 
-  selectUserById(id?: number){
-    this.userSelected$.next(this.userList.find(user => user.id === id) || null)
+  selectUserById(id: number): Observable<User>{
+    //this.userSelected$.next(this.userList.find(user => user.id === id) || null)
+    return this.httpClient.get<User>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users/'+id);
   }
 
   deleteUserByIndex(index?: number){
@@ -113,9 +54,12 @@ export class UserService {
     this.users$.next(this.userList)
   }
 
-  deleteUserById(id?: number){
-    this.userList = this.userList.filter((user) => id != user.id)
-    this.users$.next(this.userList)
+  deleteUserById(id: number){
+    return this.httpClient.delete('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users/'+id);
+  }
+
+  updateDate(data: User){
+    return this.httpClient.put('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users/'+data.id, data);
   }
 
   searchUsersByName(name: string){

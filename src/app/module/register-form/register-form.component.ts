@@ -34,7 +34,7 @@ export class RegisterFormComponent implements OnInit {
     this.susbcriptions.add(
       this.activatedRoute.params.subscribe((param) => {
         console.log(param)
-        this.userService.selectUserByIndex(Number(param['index']))
+        this.userService.selectUserById(Number(param['id']))
       })
     )
     this.susbcriptions.add(
