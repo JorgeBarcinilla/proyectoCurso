@@ -22,7 +22,7 @@ export class UserService {
   }
 
   getUsers(nombre?:string): Observable<User[]>{
-    return this.httpClient.get<User[]>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'u',{headers: new HttpHeaders({
+    return this.httpClient.get<User[]>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users',{headers: new HttpHeaders({
       "authorization": 'Este es el token'
     })}).pipe(
       map((users) => {
