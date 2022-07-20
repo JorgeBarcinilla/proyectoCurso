@@ -4,12 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path:'lista',
-    loadChildren: () => import('./module/user-list/user-list.module').then((m) => m.UserListModule)
+    loadChildren: () => import('./modules/user-list/user-list.module').then((m) => m.UserListModule)
   },
   {
     path:'form',
-    loadChildren: () => import('./module/register-form/register-form.module').then((m) => m.RegisterFormModule)
+    loadChildren: () => import('./modules/register-form/register-form.module').then((m) => m.RegisterFormModule)
   },
+  { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
   {
     path:'**',
     redirectTo: 'form'

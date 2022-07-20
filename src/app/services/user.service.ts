@@ -16,6 +16,12 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
+  login(user:string, password:string){
+    console.log(user,
+      password)
+    return this.getUsers().pipe(map((users) => users[0]));
+  }
+
   addUser(user:User){
     this.userList.push(user)
     this.users$.next(this.userList)
