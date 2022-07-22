@@ -2,7 +2,10 @@
   "navBarComponent":{
     "titleApp": "Mi aplicación",
     "languageES": "Español",
-    "languageEN": "Ingles"
+    "languageEN": "Ingles",
+    "tooltipThemeModeLight": "Cambiar a modo claro",
+    "tooltipThemeModeDark": "Cambiar a modo oscuro",
+    "tooltipLogout": "Cerrar sesión"
   },
   "userListComponent": {
     "titleTable": "Lista de usuarios",
@@ -13,6 +16,8 @@
       "emailColumn": "Correo",
       "countryColumn": "País"
     },
+    "labelSearchInput": "Buscar usuario",
+    "labelButtonLoadUser": "Cargar usuarios",
     "labelUserSelected": "Usuario seleccionado",
     "labelUserNoSelected":"No hay usuario seleccionado"
   },

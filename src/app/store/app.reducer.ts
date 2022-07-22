@@ -1,7 +1,9 @@
-import { ActionReducerMap } from "@ngrx/store";
+import { ActionReducerMap, createAction } from "@ngrx/store";
 import { IAppState } from "./app.state";
-import { loginReducer } from "./reducers/login.reducer";
+import { authReducer } from "./reducers/auth.reducer";
 
 export const appReducers: ActionReducerMap<IAppState> = {
-  login: loginReducer
+  auth: authReducer
 }
+
+export const emptyAction = createAction('Accion vacia');

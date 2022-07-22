@@ -1,0 +1,90 @@
+<div class="grid grid-cols-6 gap-2 md:h-full">
+  <div class="col-span-6 md:col-span-2 flex flex-col h-full">
+    <div class="flex flex-row justify-center p-2">
+      <span class="text-4xl font-bold mx-2">{{"userListComponent.titleTable" | translate}} </span>
+    </div>
+    <div class="flex flex-row justify-center p-2">
+      <button class="w-full" mat-flat-button color="primary" matTooltip="Load Users"
+      aria-label="Example icon button with a home icon" (click)="getUsers()">
+      {{'userListComponent.labelButtonLoadUser' | translate}}
+    </button>
+    </div>
+    <div *ngIf="userSelect$ | async as userSelect" class="flex flex-col p-2">
+      <div class="flex flex-row justify-center p-2">
+        <span class="text-2xl font-bold">{{"userListComponent.labelUserSelected" | translate}}</span>
+      </div>
+      <div class="flex flex-row justify-center px-2">
+        <img class="inline-block h-12 w-12 rounded-full ring-2 ring-white" [src]="userSelect?.avatar" alt=""/>
+      </div>
+      <div class="flex flex-row justify-center px-2">
+          <span [ngClass]="userSelect ? 'text-green-500' : 'text-danger-default'"
+            class="text-lg
+            font-bold">{{(userSelect?.firstName + ' ' + userSelect?.lastName)}}
+          </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-6 md:col-span-4 flex flex-col h-full overflow-auto px-2">
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>{{"userListComponent.labelSearchInput" | translate}}</mat-label>
+      <input matInput [formControl]="inputBusqueda">
+    </mat-form-field>
+      <table mat-table [dataSource]="(tableDataSource$ | async)!"  class="w-full shadow-lg rounded-lg border-collapse">
+
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- index Column -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef> {{"userListComponent.table.positionColumn" | translate}} </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <!-- FirstName Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> {{"userListComponent.table.firstNameColumn" | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+
+        <!-- FirstName Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> {{"userListComponent.table.lastNameColumn" | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> {{"userListComponent.table.emailColumn" | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- country Column -->
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> {{"userListComponent.table.countryColumn" | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <button class="text-green-500" mat-icon-button matTooltip="Select user"
+              aria-label="Example icon button with a home icon" (click)="selectUser(element.id)">
+              <mat-icon>how_to_reg</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Delete user" color="warn"
+              aria-label="Example icon button with a home icon" (click)="deleteUser(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Edit user" color="accent"
+              aria-label="Example icon button with a home icon" (click)="navigateToForm(element.id)">
+              <mat-icon>link</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTable; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTable;"></tr>
+      </table>
+  </div>
+</div>

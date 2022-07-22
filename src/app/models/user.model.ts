@@ -10,4 +10,7 @@ export interface User{
   city: string;
   createdAt: string;
   postalCode: number;
+  token: string;
+  password: string;
+  username: string
 }

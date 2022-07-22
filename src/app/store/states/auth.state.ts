@@ -1,12 +1,12 @@
 import { User } from "src/app/models/user.model"
 
-export interface ILoginState {
+export interface IAuthState {
   user: User | null,
   token: string | null,
   loading: boolean
 }
 
-export const initialLoginState: ILoginState = {
+export const initialAuthState: IAuthState = {
   user: null,
   token: null,
   loading: false

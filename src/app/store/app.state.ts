@@ -1,9 +1,9 @@
-import { ILoginState, initialLoginState } from "./states/login.state";
+import { IAuthState, initialAuthState } from "./states/auth.state";
 
 export interface IAppState {
-  login: ILoginState
+  auth: IAuthState
 }
 
 export const initialAppState : IAppState = {
-  login: initialLoginState
+  auth: initialAuthState
 }

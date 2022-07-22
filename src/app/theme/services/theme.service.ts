@@ -130,6 +130,7 @@ export class ThemeService {
     this.currentTheme.setThemeMode(themeMode);
     document.body.classList.add(themeMode);
     localStorage.setItem('themeMode', themeMode);
+    console.log(themeMode)
     if(oldThemeMode) document.body.classList.remove(oldThemeMode);
   }
 

@@ -16,10 +16,18 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(user:string, password:string){
-    console.log(user,
-      password)
-    return this.getUsers().pipe(map((users) => users[0]));
+  login(username:string, password:string): Observable<User | null>{
+    return this.httpClient.get<User[]>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users',{headers: new HttpHeaders({
+      "authorization": 'Este es el token'
+    })}).pipe(
+      map((users) => {
+        return users.find(user =>  user.username == username && user.password == password) || null
+      }),
+      catchError((error) => {
+        console.log(error)
+        throw new Error()
+      })
+    );
   }
 
   addUser(user:User){
@@ -45,13 +53,7 @@ export class UserService {
     return this.userSelected$.asObservable()
   }
 
-  /*selectUserByIndex(index?: number){
-    console.log(this.userList[index!])
-    this.userSelected$.next(index !== undefined ? this.userList[index] : null)
-  }*/
-
   selectUserById(id: number): Observable<User>{
-    //this.userSelected$.next(this.userList.find(user => user.id === id) || null)
     return this.httpClient.get<User>('https://62ce1596066bd2b6992faee8.mockapi.io/api/v1/'+'users/'+id);
   }
 

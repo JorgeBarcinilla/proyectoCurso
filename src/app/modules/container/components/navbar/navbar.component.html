@@ -9,10 +9,7 @@
       <span class="text-white">{{"navBarComponent.titleApp" | translate}}</span>
     </div>
     <div class="flex items-center">
-      <span class="text-base font-bold p-2 text-white">{{currentDate | date : 'medium'}}</span>
-      <button mat-icon-button class="text-white" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
+      <span class="text-base font-bold p-2 text-white hidden sm:inline">{{currentDate | date : 'medium'}}</span>
       <button mat-icon-button class="text-white" aria-label="Example icon-button with heart icon"
         [matMenuTriggerFor]="languageMenu">
         <mat-icon>translate</mat-icon>
@@ -21,14 +18,18 @@
         <button *ngIf="currentLanguage != Language.ES" mat-menu-item
           (click)="changeLanguage(Language.ES)">{{"navBarComponent.languageES" | translate}}</button>
         <button *ngIf="currentLanguage != Language.EN" mat-menu-item
-          (click)="changeLanguage(Language.EN)">Ingles</button>
+          (click)="changeLanguage(Language.EN)">{{"navBarComponent.languageEN" | translate}}</button>
       </mat-menu>
       <button mat-icon-button class="text-white" aria-label="Example icon-button with share icon"
-        [matTooltip]="currentTheme.themeMode === ThemeMode.DARK ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+        [matTooltip]="currentTheme.themeMode === ThemeMode.DARK ? ('navBarComponent.tooltipThemeModeLight' | translate) : ('navBarComponent.tooltipThemeModeDark' | translate)"
         (click)="changeThemeMode(currentTheme.themeMode)">
         <mat-icon class="text-default-600 dark:text-yellow-500">
           {{ currentTheme.themeMode === ThemeMode.DARK ? 'light_mode' : 'dark_mode' }}
         </mat-icon>
+      </button>
+      <img *ngIf="(user$ | async) as user" class="inline-block h-11 w-11 rounded-full ring-2 ring-white" [src]="user.avatar" alt=""/>
+      <button mat-icon-button color="warn" aria-label="Example icon-button with heart icon" [matTooltip]="'navBarComponent.tooltipLogout' | translate" (click)="logout()">
+        <mat-icon>logout</mat-icon>
       </button>
     </div>
   </mat-toolbar>

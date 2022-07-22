@@ -33,23 +33,11 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.susbcriptions.add(
       this.activatedRoute.params.subscribe((param) => {
-        console.log(param)
-        this.userService.selectUserById(Number(param['id']))
-      })
-    )
-    this.susbcriptions.add(
-      this.userService.getUserSelect().subscribe({
-          next: (user) => {
-            console.log(user)
-            if(user){
-              this.myForm.patchValue(user)
-            }else{
-              this.myForm.reset();
-            }
-          }, error : (error) => {
-            console.error(error)
-          }
+        this.userService.selectUserById(Number(param['id'])).subscribe({
+          next: (user) => this.myForm.patchValue(user),
+          error: () => this.myForm.reset()
         })
+      })
     )
   }
 

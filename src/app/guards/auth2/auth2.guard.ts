@@ -13,7 +13,7 @@ export class Auth2Guard implements CanActivateChild {
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const token = localStorage.getItem('token')
-    return token ? true : this.router.navigate(['form/0']);
+    return token ? true : this.router.navigate(['login']);
   }
 
 }
