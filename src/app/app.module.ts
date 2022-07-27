@@ -11,8 +11,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { appEffects } from './store/app.effects';
 import { appReducers } from './store/app.reducer';
-import { AuthEffects } from './store/effects/auth.effects';
 import { ThemeInitializerProvider } from './theme/theme-initializer.provider';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [

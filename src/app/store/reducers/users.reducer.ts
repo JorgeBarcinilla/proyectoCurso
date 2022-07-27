@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store"
 import { USERS_ACTIONS } from "../actions/users.actions"
+import { usersAdapter } from "../entities/users.entity"
 import { initialUsersState } from "../states/users.state"
 
 export const usersReducer = createReducer(
@@ -11,12 +12,8 @@ export const usersReducer = createReducer(
     }
   }),
   on(USERS_ACTIONS.load.success, (state, {users}) => {
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      users,
-    }
+    const newState = usersAdapter.removeAll({...state})
+    return usersAdapter.addMany(users, {...newState, loading: false})
   }),
   on(USERS_ACTIONS.load.failed, (state) => {
     return {

@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { debounceTime, map, Observable, Subscription, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { USERS_ACTIONS } from 'src/app/store/actions/users.actions';
-import { USERS_SELECTORS } from 'src/app/store/selectors/users.selectors';
+import { UsersFacade } from 'src/app/store/facades/users.facade';
 
 @Component({
   selector: 'app-user-list',
@@ -22,14 +20,13 @@ export class UserListComponent implements OnInit {
   textFromOtherComponent: string | null = null
 
   displayedColumnsTable = ['index', 'firstName', 'lastName', 'email' ,'country', 'action']
-  tableDataSource$ = this.store.select(USERS_SELECTORS.selectGetUsers).pipe(tap((users) => console.log(users)),
-  map((users) => new MatTableDataSource<User>(users)));
+  tableDataSource$ = this.usersFacade.getUsers().pipe(map((users) => new MatTableDataSource<User>(users)));
 
   userSelect$: Observable<User> | null = null
 
   susbcriptions: Subscription = new Subscription();
 
-  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private usersFacade: UsersFacade) {
 
   }
 
@@ -51,6 +48,10 @@ export class UserListComponent implements OnInit {
     )
   }
 
+  loadUsers(){
+    this.usersFacade.loadUsers();
+  }
+
   selectUser(id: number){
     this.userSelect$ = this.userService.selectUserById(id)
   }
@@ -59,7 +60,7 @@ export class UserListComponent implements OnInit {
     this.userService.deleteUserById(id).subscribe((resp) => {
       console.log(resp);
     })
-    this.getUsers();
+    this.loadUsers();
   }
 
   updateUser(){
@@ -69,9 +70,4 @@ export class UserListComponent implements OnInit {
   navigateToForm(userId: number){
     this.router.navigate(['/form/'+userId])
   }
-
-  getUsers(){
-    this.store.dispatch(USERS_ACTIONS.load.run({}))
-  }
-
 }
