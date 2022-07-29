@@ -16,7 +16,7 @@ export class AuthEffects {
       mergeMap((action) => {
         return this.userService.login(action.user, action.password).pipe(
           map((user) => {
-            return user ? AUTH_ACTIONS.Login.success({token: user.token, user}) : emptyAction()
+            return user ? AUTH_ACTIONS.Login.success({token: user.token, user, remember: action.remember}) : emptyAction()
           })
         )
       })
@@ -26,9 +26,10 @@ export class AuthEffects {
   loginSuccessEffets$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AUTH_ACTIONS.Login.success),
-      map(({token}) => {
+      map(({token, remember}) => {
         console.log('login success effects')
         localStorage.setItem('token', token)
+        localStorage.setItem('remenber', remember+'')
         this.router.navigate(['/'])
         return emptyAction()
       })

@@ -13,10 +13,12 @@ export class LoginComponent implements OnInit {
 
   user$ = this.store.select(AUTH_SELECTORS.selectGetUser);
   loading$ = this.store.select(AUTH_SELECTORS.selectGetAuthLoading);
+  remember$ = this.store.select(AUTH_SELECTORS.selectGetAuthRemember);
 
   formLogin = new FormGroup({
     user: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required)
+    password: new FormControl(null, Validators.required),
+    remember: new FormControl(false, Validators.required)
   })
 
   constructor(private store: Store) { }
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(AUTH_ACTIONS.Login.run({
       user: this.formLogin.value.user,
       password: this.formLogin.value.password,
+      remember: this.formLogin.value.remember,
     }))
   }
 }
